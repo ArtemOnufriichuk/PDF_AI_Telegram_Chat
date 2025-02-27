@@ -14,6 +14,10 @@ import requests
 import asyncio
 import nest_asyncio
 from typing import Dict, List, Optional
+from dotenv import load_dotenv
+
+# Load environment variables from .env file
+load_dotenv()
 
 from telegram import (
     Update,
@@ -38,14 +42,13 @@ nest_asyncio.apply()
 # ------------------------------------------------------------------------------
 
 # API токены и ключи
-TELEGRAM_BOT_TOKEN = os.environ.get(
-    "TELEGRAM_BOT_TOKEN", 
-    "7988781887:AAGdJWJhDFaJOQ0ZYiQK2tDFgZL285Ge5OE"
-)
-CHATPDF_API_KEY = os.environ.get(
-    "CHATPDF_API_KEY", 
-    "sec_wmotAYO2cndrRTIogFQKY8xc35dBFUmx"
-)
+TELEGRAM_BOT_TOKEN = os.environ.get("TELEGRAM_BOT_TOKEN")
+if not TELEGRAM_BOT_TOKEN:
+    raise ValueError("TELEGRAM_BOT_TOKEN environment variable is not set. Please check your .env file.")
+
+CHATPDF_API_KEY = os.environ.get("CHATPDF_API_KEY")
+if not CHATPDF_API_KEY:
+    raise ValueError("CHATPDF_API_KEY environment variable is not set. Please check your .env file.")
 
 # API endpoints для ChatPDF
 CHATPDF_API = {
